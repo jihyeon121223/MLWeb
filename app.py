@@ -1,5 +1,7 @@
 from flask import Flask,render_template,request
-import os
+import os, pickle
+import numpy as np
+from PIL import Image
 
 app = Flask(__name__)
 
@@ -15,7 +17,15 @@ def mnist():
         f = request.files['mnistfile'] #html에서 아까 정해준 이름
         path  = os.path.dirname(__file__)+'/upload/'+f.filename
         f.save(path)
-        return "성공!!"
+        img = Image.open(path).convert("L")
+        img = np.resize(img,(1,784))
+        # img = 255 - (img)
+        img = np.resize(img,(1,784))
+        mpath = os.path.dirname(__file__)+'/model1.pickle'
+        with open(mpath,'rb') as f:
+            model = pickle.load(f)
+        pred = model.predict(img)
+        return render_template('mnistresult.html',data=pred) #데이타 라는 이름으로 예측값을 넘기겠다
 
 
 if __name__ == '__main__':
