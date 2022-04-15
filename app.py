@@ -1,4 +1,5 @@
 from flask import Flask,render_template,request
+import os
 
 app = Flask(__name__)
 
@@ -11,7 +12,10 @@ def mnist():
     if request.method == 'GET': #위에 설정 잘 되는지 확인
         return render_template('mnistform.html')
     else:
-        pass
+        f = request.files['mnistfile'] #html에서 아까 정해준 이름
+        path  = os.path.dirname(__file__)+'/upload/'+f.filename
+        f.save(path)
+        return "성공!!"
 
 
 if __name__ == '__main__':

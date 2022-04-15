@@ -5,13 +5,13 @@
     <!-- <BR> #줄바꿈 -->
     <p style="height: 100px;"></p>
     <h1>Mnist 숫자 인식 모델</h1>
-    <form>
+    <form action="/mnist" method="post" enctype="multipart/form-data">
         <div>
             <label for="formFileLg" class="form-label">Large file input example</label>
-            <input class="form-control form-control-lg" id="formFileLg" type="file">
-          </div>
-          <br>
-          <button type="submit" class="btn btn-primary">Submit</button>
+            <input class="form-control form-control-lg" id="formFileLg" name="mnistfile" type="file"> #이름이 있어야 전달함
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 {% endblock %}
